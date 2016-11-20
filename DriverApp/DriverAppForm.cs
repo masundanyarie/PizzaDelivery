@@ -8,51 +8,65 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using Hik.Communication.Scs.Communication.EndPoints.Tcp;
-using Hik.Communication.ScsServices.Client;
-using DeliveryPizzaLib;
+using DeliveryPizzaLib.Driver;
 
 namespace DriverApp
 {
-    public partial class DriverAppForm : Form, IDriverClient
+    public partial class DriverAppForm : Form, IDriverView
     {
-        IDriverServer server;
+        private const int INVALID_DRIVER_ID = -1;
+
+        private IDriverPresenter _presenter;
 
         public DriverAppForm()
         {
             InitializeComponent();
-
-            var client = ScsServiceClientBuilder.CreateClient<IDriverServer>(
-                new ScsTcpEndPoint("127.0.0.1", 10048));
-
-            client.Connect();
-            server = client.ServiceProxy;
+            _presenter = new DriverPresenter(this);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            server.RegisterDriver(7);
+            _presenter.OnRegisterDriver();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            server.GetRoute(7);
+            _presenter.OnPizzaDelivered();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            server.Delivered(7);
+            _presenter.OnReadyForDelivery();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            server.UnregisterDriver(7);
-            
+            _presenter.OnUnregisterDriver();       
         }
 
-        public void OnOrderReceived()
+        void IDriverView.OnDisconnected()
         {
-            textBox1.Text += "1";
+            // stub
+        }
+
+        void IDriverView.OnConnected()
+        {
+            // stub
+        }
+
+        void IDriverView.OnOrderReceived(Route route)
+        {
+            if (route != null)
+            {
+                textBox1.Text += "1";
+            }
+            // stub
+        }
+
+        int IDriverView.GetDriverId()
+        {
+            return 1;
+            // stub
         }
     }
 }

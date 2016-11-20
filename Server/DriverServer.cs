@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Hik.Communication.ScsServices.Service;
-using DeliveryPizzaLib;
+using DeliveryPizzaLib.Driver;
+using DeliveryPizzaLib.Manager;
 
 namespace ServerApp
 {
-    class Server : ScsService, IDriverServer
+    class DriverServer : ScsService, IDriverServer
     {
         IDriverClient client;
         public int RegisterDriver(int driverId)

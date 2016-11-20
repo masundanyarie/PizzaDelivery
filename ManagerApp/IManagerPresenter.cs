@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeliveryPizzaLib
+namespace ManagerApp
 {
-    [Serializable]
-    public class Route
+    public interface IManagerPresenter
     {
+        void OnGetStatistics();
+
+        void OnGetRecommendations();
     }
 }

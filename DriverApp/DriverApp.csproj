@@ -53,6 +53,9 @@
     <Compile Include="DriverAppForm.Designer.cs">
       <DependentUpon>DriverAppForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DriverPresenter.cs" />
+    <Compile Include="IDriverPresenter.cs" />
+    <Compile Include="IDriverView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DriverAppForm.resx">

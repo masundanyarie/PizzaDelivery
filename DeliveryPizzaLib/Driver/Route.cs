@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeliveryPizzaLib
+namespace DeliveryPizzaLib.Driver
 {
-    public interface IDriverClient
+    [Serializable]
+    public class Route
     {
-        void OnOrderReceived();
     }
 }

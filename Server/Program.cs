@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 using Hik.Communication.Scs.Communication.EndPoints.Tcp;
 using Hik.Communication.ScsServices.Service;
-using DeliveryPizzaLib;
+using DeliveryPizzaLib.Driver;
+using DeliveryPizzaLib.Manager;
 
 namespace ServerApp
 {
@@ -14,17 +15,32 @@ namespace ServerApp
     {
         static void Main(string[] args)
         {
-            var server = ScsServiceBuilder.CreateService(new ScsTcpEndPoint(10048));
+            var server = ScsServiceBuilder.CreateService(new ScsTcpEndPoint(10047));
 
-            server.AddService<IDriverServer, Server>(new Server());
+            DriverServer driverServer = new DriverServer();
+            server.AddService<IDriverServer, DriverServer>(driverServer);
+
+            ManagerServer managerServer = new ManagerServer();
+            server.AddService<IManagerServer, ManagerServer>(managerServer);
+
             server.Start();
 
-            //Wait user to stop server by pressing Enter
-            Console.WriteLine(
-                "Press enter to send OnOrderReceived");
-            Console.ReadLine();
+            do {
+                //Wait user to stop server by pressing Enter
+                Console.WriteLine("Enter:\n"
+                    + "0 - to exit\n"
+                    + "1 - to send OnOrderReceived\n");
+                String line = Console.ReadLine();
 
-
+                switch (line)
+                {
+                    case "0":
+                        break;
+                    case "1": 
+                        driverServer.SendOnOrderReceived();
+                        break;
+                }
+            } while(!driverServer.Equals("0"));
 
             //Stop server
             server.Stop();

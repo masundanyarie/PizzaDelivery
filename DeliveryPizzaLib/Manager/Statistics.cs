@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeliveryPizzaLib.Server
+namespace DeliveryPizzaLib.Manager
 {
-    interface IManagerServer
+    [Serializable]
+    public class Statistics
     {
     }
 }

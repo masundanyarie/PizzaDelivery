@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Hik.Communication.ScsServices.Service;
 
-namespace DeliveryPizzaLib
+namespace DeliveryPizzaLib.Driver
 {
     [ScsService(Version = "1.0.0.0")]
     public interface IDriverServer

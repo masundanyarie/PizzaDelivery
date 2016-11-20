@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeliveryPizzaLib", "Deliver
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriverApp", "DriverApp\DriverApp.csproj", "{F4075156-DD04-4E4C-9812-2555D98C117C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagerApp", "ManagerApp\ManagerApp.csproj", "{DFA1C0F8-53FC-44DD-8B4A-2BF3EFB96827}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{F4075156-DD04-4E4C-9812-2555D98C117C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4075156-DD04-4E4C-9812-2555D98C117C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4075156-DD04-4E4C-9812-2555D98C117C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFA1C0F8-53FC-44DD-8B4A-2BF3EFB96827}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFA1C0F8-53FC-44DD-8B4A-2BF3EFB96827}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFA1C0F8-53FC-44DD-8B4A-2BF3EFB96827}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFA1C0F8-53FC-44DD-8B4A-2BF3EFB96827}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
