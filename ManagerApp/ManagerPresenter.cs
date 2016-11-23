@@ -16,6 +16,7 @@ namespace ManagerApp
         private const int defaultPort = 10047;
 
         private IManagerView _view;
+        private IManagerServer _server;
 
         public ManagerPresenter(IManagerView view)
         {

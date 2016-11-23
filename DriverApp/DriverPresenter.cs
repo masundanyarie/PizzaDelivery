@@ -18,6 +18,7 @@ namespace DriverApp
 
         private IDriverView _view;
         private IScsServiceClient<IDriverServer> _scsClient;
+        private IDriverServer _server;
 
         private int _driverId = INVALID_DRIVER_ID;
 
@@ -34,11 +35,13 @@ namespace DriverApp
                     new ScsTcpEndPoint(defaultIP, defaultPort), this);
                 _scsClient.Connect();
 
+                _server = _scsClient.ServiceProxy;
+
                 _driverId = _view.GetDriverId();
 
                 if (_driverId != INVALID_DRIVER_ID)
                 {
-                    _scsClient.ServiceProxy.RegisterDriver(_driverId);
+                    _server.RegisterDriver(_driverId);
                     _view.OnConnected();
                 }
                 else
@@ -59,7 +62,7 @@ namespace DriverApp
         {
             if (_scsClient != null)
             {
-                _scsClient.ServiceProxy.RegisterDriver(_driverId);
+                _server.RegisterDriver(_driverId);
                 _scsClient.Disconnect();
                 _scsClient = null;
 
@@ -71,7 +74,7 @@ namespace DriverApp
         {
             if (_scsClient != null)
             {
-                _scsClient.ServiceProxy.Delivered(_driverId);
+                _server.Delivered(_driverId);
             }
         }
 
@@ -79,7 +82,7 @@ namespace DriverApp
         {
             if (_scsClient != null)
             {
-                _view.OnOrderReceived(_scsClient.ServiceProxy.GetRoute(_driverId));
+                _view.OnOrderReceived(_server.GetRoute(_driverId));
             }
         }
 
@@ -87,7 +90,7 @@ namespace DriverApp
         {
             if (_scsClient != null && _driverId != INVALID_DRIVER_ID)
             {
-                Route route = _scsClient.ServiceProxy.GetRoute(_driverId);
+                Route route = _server.GetRoute(_driverId);
 
                 if (route != null)
                 {
