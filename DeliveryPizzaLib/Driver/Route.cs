@@ -9,5 +9,13 @@ namespace DeliveryPizzaLib.Driver
     [Serializable]
     public class Route
     {
+        public int[] _pointIndexes;
+
+        public Route(int[] pointIndexes)
+        {
+            _pointIndexes = pointIndexes;
+        }
+
+        public Route() {}
     }
 }

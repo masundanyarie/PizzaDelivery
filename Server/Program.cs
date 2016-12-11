@@ -25,6 +25,7 @@ namespace ServerApp
 
             server.Start();
 
+
             String line;
             do {
                 //Wait user to stop server by pressing Enter
@@ -37,6 +38,9 @@ namespace ServerApp
                 {
                     case "1": 
                         driverServer.SendOnOrderReceived();
+                        break;
+                    case "3":
+                        new Map();
                         break;
                 }
             } while (!line.Equals("0"));
