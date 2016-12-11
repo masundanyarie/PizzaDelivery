@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ManagerApp.Form1" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="2.5" Width="2.25" />
+    <Members>
+      <Field Name="button1" Hidden="true" />
+      <Method Name="button1_Click" Hidden="true" />
+      <Field Name="button2" Hidden="true" />
+      <Method Name="button2_Click" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Method Name="Form1" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AJAAAAAAACAAAAAAAACAAAACAABYAAAACGAAAAEAAAA=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_presenter" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ManagerApp.ManagerPresenter" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <Members>
+      <Field Name="defaultIP" Hidden="true" />
+      <Field Name="defaultPort" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAQAAAACAAAAAAAAAAACAAQAIAAAA=</HashCode>
+      <FileName>ManagerPresenter.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_view" />
+      <Field Name="_server" />
+    </ShowAsAssociation>
+    <Lollipop Position="1.033" />
+  </Class>
+  <Interface Name="ManagerApp.IManagerPresenter" Collapsed="true">
+    <Position X="4" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAIAAAA=</HashCode>
+      <FileName>IManagerPresenter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ManagerApp.IManagerView" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AJAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>IManagerView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DeliveryPizzaLib.Manager.IManagerServer" Collapsed="true">
+    <Position X="4" Y="1.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

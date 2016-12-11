@@ -26,17 +26,16 @@ namespace ServerApp
             server.Start();
 
 
+            String line;
             do {
                 //Wait user to stop server by pressing Enter
                 Console.WriteLine("Enter:\n"
                     + "0 - to exit\n"
                     + "1 - to send OnOrderReceived\n");
-                String line = Console.ReadLine();
+                line = Console.ReadLine();
 
                 switch (line)
                 {
-                    case "0":
-                        break;
                     case "1": 
                         driverServer.SendOnOrderReceived();
                         break;
@@ -44,7 +43,7 @@ namespace ServerApp
                         new Map();
                         break;
                 }
-            } while(!driverServer.Equals("0"));
+            } while (!line.Equals("0"));
 
             //Stop server
             server.Stop();
