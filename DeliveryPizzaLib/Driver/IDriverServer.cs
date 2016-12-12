@@ -13,7 +13,7 @@ namespace DeliveryPizzaLib.Driver
     {
         int RegisterDriver(int driverId);
         int UnregisterDriver(int driverId);
-        Route GetRoute(int driverId);
+        Route GetRoute(int driverId, int positionId);
         void Delivered(int driverId);
     }
 }

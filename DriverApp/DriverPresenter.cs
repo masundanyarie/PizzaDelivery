@@ -82,7 +82,7 @@ namespace DriverApp
         {
             if (_scsClient != null)
             {
-                _view.OnOrderReceived(_server.GetRoute(_driverId));
+                _view.OnOrderReceived(_server.GetRoute(_driverId, 0));
             }
         }
 
@@ -90,7 +90,7 @@ namespace DriverApp
         {
             if (_scsClient != null && _driverId != INVALID_DRIVER_ID)
             {
-                Route route = _server.GetRoute(_driverId);
+                Route route = _server.GetRoute(_driverId, 0);
 
                 if (route != null)
                 {

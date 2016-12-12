@@ -10,12 +10,12 @@ namespace ServerApp
 {
     public class Map
     {
-        private int size = 4;
+        public const int Size = 4;
         private Dictionary<int, DejkstraAlgorim> calculatedDejksters = new Dictionary<int,DejkstraAlgorim>();
 
         public Map()
         {
-            for (int id = 0; id < size * size; id++)
+            for (int id = 0; id < Size * Size; id++)
             {
                 Console.WriteLine(getName(id));
             }
@@ -36,27 +36,27 @@ namespace ServerApp
 
         private DejkstraAlgorim startNewDejkster(int pointId)
         {
-            Point[] points = new Point[size * size];
-            for (int i = 0; i < size; i++)
+            Point[] points = new Point[Size * Size];
+            for (int i = 0; i < Size; i++)
             {
-                for (int j = 0; j < size; j++)
+                for (int j = 0; j < Size; j++)
                 {
-                    points[i * size + j] = new Point(9999, false,
-                        "[" + i.ToString() + "," + j.ToString() + "]", i * size + j);
+                    points[i * Size + j] = new Point(9999, false,
+                        "[" + i.ToString() + "," + j.ToString() + "]", i * Size + j);
                 }
             }
-            int halfEdgeSize = (size - 1) * size;
+            int halfEdgeSize = (Size - 1) * Size;
             Edge[] edges = new Edge[halfEdgeSize * 2];
             Random rand = new Random(0);
 
-            for (int i = 0; i < (size - 1); i++)
+            for (int i = 0; i < (Size - 1); i++)
             {
-                for (int j = 0; j < size; j++)
+                for (int j = 0; j < Size; j++)
                 {
-                    edges[i * (size) + j] = new Edge(points[i * size + j],
-                        points[(i + 1) * size + j], rand.Next(20));
-                    edges[halfEdgeSize + i * (size) + j] = new Edge(points[j * (size) + i],
-                        points[j * (size) + i + 1], rand.Next(20));
+                    edges[i * (Size) + j] = new Edge(points[i * Size + j],
+                        points[(i + 1) * Size + j], rand.Next(20));
+                    edges[halfEdgeSize + i * (Size) + j] = new Edge(points[j * (Size) + i],
+                        points[j * (Size) + i + 1], rand.Next(20));
                 }
             }
 
@@ -76,13 +76,8 @@ namespace ServerApp
             return res;
         }
 
-        public int getSize()
-        {
-            return size;
-        }
-
         public string getName(int pointId) {
-            return "[" + (pointId / size) + "," + (pointId % size) + "]";
+            return "[" + (pointId / Size) + "," + (pointId % Size) + "]";
         }
 
         public Route getRoute(int p1, int p2)
