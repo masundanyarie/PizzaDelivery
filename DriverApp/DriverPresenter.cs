@@ -41,7 +41,7 @@ namespace DriverApp
 
                 if (_driverId != INVALID_DRIVER_ID)
                 {
-                    _server.RegisterDriver(_driverId);
+                    _server.RegisterDriver(_driverId, 0);
                     _view.OnConnected();
                 }
                 else
@@ -62,7 +62,7 @@ namespace DriverApp
         {
             if (_scsClient != null)
             {
-                _server.RegisterDriver(_driverId);
+                _server.UnregisterDriver(_driverId);
                 _scsClient.Disconnect();
                 _scsClient = null;
 
@@ -78,19 +78,11 @@ namespace DriverApp
             }
         }
 
-        void IDriverPresenter.OnReadyForDelivery()
-        {
-            if (_scsClient != null)
-            {
-                _view.OnOrderReceived(_server.GetRoute(_driverId, 0));
-            }
-        }
-
         void IDriverClient.OnOrderReceived()
         {
             if (_scsClient != null && _driverId != INVALID_DRIVER_ID)
             {
-                Route route = _server.GetRoute(_driverId, 0);
+                Route route = _server.GetRoute(_driverId);
 
                 if (route != null)
                 {

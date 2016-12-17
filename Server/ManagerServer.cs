@@ -11,9 +11,15 @@ namespace ServerApp
 {
     class ManagerServer : ScsService, IManagerServer
     {
+        IDatabase database = null;
+
         public Statistics GetStatistics(DateTime dateBegin, DateTime dateEnd)
         {
             Console.WriteLine("GetStatistics");
+            if (database != null)
+            {
+                return new Statistics(database.getBetween(dateBegin, dateEnd).ToArray());
+            }
             return new Statistics();
         }
 

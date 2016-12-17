@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+using DeliveryPizzaLib.Manager;
+
 namespace ServerApp
 {
     class OrderEmulator
@@ -17,21 +19,38 @@ namespace ServerApp
         private Thread mThread;
         private OrderEmulator.OrerListener mListener;
         private Random mRand = new Random(0);
+        Timer timer;
 
         public OrderEmulator(OrerListener listener)
         {
             mListener = listener;
-            mThread = new Thread(this.Run);
-            mThread.Start();
+            //mThread = new Thread(this.Run);
+            //mThread.Start();
+            timer = new Timer(generateOrder, null, 0, 3000);
+        }
+
+        public void stopTimer()
+        {
+            timer.Change(1000000, 1000000);
+        }
+
+        public void startTimer()
+        {
+            timer.Change(0, 3000);
         }
 
         private void Run()
         {
-            Timer timer = new Timer(generateOrder, null, 0, 3000);
+            
             while (true)
             {
 
             }
+        }
+
+        public void generateOrder()
+        {
+            generateOrder(null);
         }
 
         private void generateOrder(object obj)

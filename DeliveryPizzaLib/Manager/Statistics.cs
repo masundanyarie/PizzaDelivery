@@ -9,5 +9,15 @@ namespace DeliveryPizzaLib.Manager
     [Serializable]
     public class Statistics
     {
+        Order[] orders;
+
+        public Statistics(Order[] orders)
+        {
+            this.orders = orders;
+        }
+        public Statistics()
+        {
+            this.orders = null;
+        }
     }
 }

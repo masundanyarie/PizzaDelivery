@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Driver\IDriverClient.cs" />
     <Compile Include="Driver\IDriverServer.cs" />
+    <Compile Include="Manager\Order.cs" />
     <Compile Include="Manager\Recommendations.cs" />
     <Compile Include="Manager\Statistics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
