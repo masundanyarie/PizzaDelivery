@@ -30,7 +30,6 @@ namespace ServerApp
 
             Console.WriteLine("Enter:\n"
                     + "0 - exit\n"
-                    + "1 - send OnOrderReceived\n"
                     + "2 - generate order\n");
 
             String line;
@@ -41,7 +40,6 @@ namespace ServerApp
                 switch (line)
                 {
                     case "1": 
-                        driverServer.SendOnOrderReceived();
                         break;
                     case "2":
                         emulator.generateOrder();

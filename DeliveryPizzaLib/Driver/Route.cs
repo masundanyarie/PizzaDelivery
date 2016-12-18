@@ -24,5 +24,16 @@ namespace DeliveryPizzaLib.Driver
             int[] res = _pointIndexes.Concat(route._pointIndexes).ToArray();
             return new Route(res);
         }
+
+        public override string ToString()
+        {
+            string s = "PT: " + pizzaType + " Route: [";
+            foreach (int n in _pointIndexes)
+            {
+                s += n + ", ";
+            }
+
+            return s.Remove(s.Length - 2) + "]"; 
+        }
     }
 }

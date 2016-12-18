@@ -38,6 +38,7 @@ namespace ManagerApp
                     new ScsTcpEndPoint(defaultIP, defaultPort), this);
             Recommendations recommend = scsClient.ServiceProxy.
                 GetRecommendations();
+            System.Console.WriteLine(recommend.ToString());
             _view.OnRecommendationsUpdate(recommend);
         }
     }

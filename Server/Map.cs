@@ -106,6 +106,7 @@ namespace ServerApp
             {
                 DejkstraAlgorim alg = calculatedDejksters[p1];
                 idxs = pathToArray(alg.MinPath1(alg.points[p2]));
+                idxs = idxs.Reverse().ToArray<int>();
             }
             else if (calculatedDejksters.ContainsKey(p2))
             {
@@ -116,6 +117,7 @@ namespace ServerApp
             {
                 DejkstraAlgorim alg = startNewDejkster(p1);
                 idxs = pathToArray(alg.MinPath1(alg.points[p2]));
+                idxs = idxs.Reverse().ToArray<int>();
             }
 
             Route r = new Route(idxs);
@@ -260,7 +262,7 @@ namespace ServerApp
                 listOfpoints.Add(tempp);
                 tempp = tempp.predPoint;
             }
-
+            listOfpoints.Add(tempp);
             return listOfpoints;
         }
 

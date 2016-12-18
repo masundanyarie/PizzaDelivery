@@ -35,121 +35,125 @@ namespace ServerApp
 
         public int RegisterDriver(int driverId, int positionId)
         {
-            Console.WriteLine("RegisterDriver, driverId = " + driverId);
             if (!mDrivers.ContainsKey(driverId))
             {
+                Console.WriteLine("Driver registred, driverId = " + driverId);
                 mDrivers.Add(driverId, new Driver(driverId, CurrentClient.GetClientProxy<IDriverClient>(), positionId, true, null));
                 freeDrivers++;
                 SendOrders();
                 return 0;
             }
+            Console.WriteLine("Driver doesn't registred, driverId = " + driverId);
             return 1;
         }
 
         public int UnregisterDriver(int driverId)
         {
-            Console.WriteLine("UnregisterDriver, driverId = " + driverId);
             if (mDrivers[driverId].order == null)
             {
                 mDrivers.Remove(driverId);
                 freeDrivers--;
+                Console.WriteLine("Driver unregistred: " + driverId);
                 return 0;
             }
-
+            Console.WriteLine("Driver still has an order, driverId = " + driverId);
             return 1;
         }
 
         public Route GetRoute(int driverId)
         {
-            Console.WriteLine("GetRoute, driverId = " + driverId);
-
             if (mDrivers[driverId].order == null)
             {
+                Console.WriteLine("No orders, driverId = " + driverId);
                 return null;
             }
 
-            Route route = mMap.getRoute(mDrivers[driverId].order.BranchILocationId.Value, mDrivers[driverId].order.LocationId)
-                .Concat(mMap.getRoute(mDrivers[driverId].order.BranchILocationId.Value, mDrivers[driverId].positionId));
+            Route route = mMap.getRoute(mDrivers[driverId].positionId, mDrivers[driverId].order.BranchILocationId.Value)
+                .Concat(mMap.getRoute(mDrivers[driverId].order.BranchILocationId.Value, mDrivers[driverId].order.LocationId));
             route.pizzaType = mDrivers[driverId].order.PizzaType;
+            Console.WriteLine("GetRoute, driverId = " + driverId + ", " + route.ToString());
             return route;
         }
 
         public void Delivered(int driverId)
         {
-            Console.WriteLine("Delivered, driverId = " + driverId);
             if (mDrivers[driverId].order != null)
             {
+                Order order = mDrivers[driverId].order;
+                mDrivers[driverId].order = null;
                 mDrivers[driverId].isFree = true;
+                order.DeliveredTime = DateTime.Now;
                 freeDrivers++;
-                mDrivers[driverId].order.DeliveredTime = DateTime.Now;
                 SendOrders();
 
                 if (mDatabase != null)
                 {
-                    mDatabase.put(mDrivers[driverId].order);
+                    mDatabase.put(order);
                     //TODO write in database
                 }
-            }
-        }
 
-        public void SendOnOrderReceived()
-        {
-            foreach (Driver driver in mDrivers.Values) {
-                driver.connection.OnOrderReceived();
+                Console.WriteLine("Drivered! " + order.ToString());
+                return;
             }
+            Console.WriteLine("Driver hasn't any orders, driverId = " + driverId);
         }
 
         public void OnOrderReceived(Order order)
         {
+            Console.WriteLine("New order! " + order.ToString());
             mOrderQueue.Enqueue(order);
             SendOrders();
-            Console.WriteLine(order.ToString());
         }
 
         private void SendOrders()
         {
-            while (freeDrivers != 0 && !mOrderQueue.IsEmpty)
-            {
-                Order order;
-                mOrderQueue.TryDequeue(out order);
+            Task.Factory.StartNew(
+                () =>
+                {                
+                    while (freeDrivers != 0 && !mOrderQueue.IsEmpty)
+                    {
+                        Order order;
+                        mOrderQueue.TryDequeue(out order);
                 
-                int min = Int32.MaxValue;
-                int nearestBranch = 0;
+                        int min = Int32.MaxValue;
+                        int nearestBranch = 0;
 
-                foreach (int branchLocationId in mBranchLocations)
-                {
-                    int tmp = mMap.getDist(order.LocationId, branchLocationId);
-                    if (tmp < min)
-                    {
-                        min = tmp;
-                        nearestBranch = branchLocationId;
-                    }                        
-                }
-
-                min = Int32.MaxValue;
-                Driver nearestDriver = null;
-
-                foreach (Driver driver in mDrivers.Values)
-                {
-                    if (driver.isFree)
-                    {
-                        int tmp = mMap.getDist(nearestBranch, driver.positionId);
-                        if (tmp < min)
+                        foreach (int branchLocationId in mBranchLocations)
                         {
-                            min = tmp;
-                            nearestDriver = driver;
+                            int tmp = mMap.getDist(order.LocationId, branchLocationId);
+                            if (tmp < min)
+                            {
+                                min = tmp;
+                                nearestBranch = branchLocationId;
+                            }                        
                         }
+
+                        min = Int32.MaxValue;
+                        Driver nearestDriver = null;
+
+                        foreach (Driver driver in mDrivers.Values)
+                        {
+                            if (driver.isFree)
+                            {
+                                int tmp = mMap.getDist(nearestBranch, driver.positionId);
+                                if (tmp < min)
+                                {
+                                    min = tmp;
+                                    nearestDriver = driver;
+                                }
+                            }
+                        }
+
+                        nearestDriver.order = order;
+                        nearestDriver.isFree = false;
+                        freeDrivers--;
+                        order.DriverId = nearestDriver.id;
+                        order.BranchILocationId = nearestBranch;
+
+                        Console.WriteLine("Sent OnOrderReceived for driverId = " + nearestDriver.id);
+                        nearestDriver.connection.OnOrderReceived();
                     }
-                }
-
-                nearestDriver.order = order;
-                nearestDriver.isFree = false;
-                freeDrivers--;
-                order.DriverId = nearestDriver.id;
-                order.BranchILocationId = nearestBranch;
-
-                nearestDriver.connection.OnOrderReceived();
-            }
+                });
         }
 
         public void SendLocation(int driverId, int positionId)

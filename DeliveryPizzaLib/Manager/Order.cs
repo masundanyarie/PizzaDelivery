@@ -28,10 +28,10 @@ namespace DeliveryPizzaLib.Manager
         override public String ToString()
         {
             return "[" + OrderTime.ToString() + ", " + (DeliveredTime.HasValue?DeliveredTime.ToString():"null") + ", " + 
-                (DriverId.HasValue?DriverId.ToString():"null") + ", " + 
-                (BranchILocationId.HasValue?BranchILocationId.ToString():"null") + ", " + 
-                PizzaType.ToString() + ", " +
-                LocationId.ToString() + "]";
+                "DriverId = " + (DriverId.HasValue?DriverId.ToString():"null") + ", " +
+                "BranchId = " + (BranchILocationId.HasValue ? BranchILocationId.ToString() : "null") + ", " +
+                "PizzaType = " + PizzaType.ToString() + ", " +
+                "OrderLocation = " + LocationId.ToString() + "]";
         }
     }
 }

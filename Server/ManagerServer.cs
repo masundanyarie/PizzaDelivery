@@ -26,7 +26,11 @@ namespace ServerApp
         public Recommendations GetRecommendations()
         {
             Console.WriteLine("GetRecommendations");
-            return new Recommendations();
+            KeyValuePair<int,int>[] rpms = new KeyValuePair<int,int>[3];
+            rpms[0] = new KeyValuePair<int, int>(0,1);
+            rpms[1] = new KeyValuePair<int, int>(3,7);
+            rpms[2] = new KeyValuePair<int, int>(60, 31);
+            return new Recommendations(rpms);
         }
     }
 }

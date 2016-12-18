@@ -53,7 +53,7 @@ namespace DriverApp
         {
             if (route != null)
             {
-                textBox1.Text += ""+route.pizzaType;
+                System.Console.WriteLine(route.ToString());
             }
             // stub
         }
