@@ -31,8 +31,9 @@ namespace DriverApp
         {
             try
             {
+                DriverClient listener = new DriverClient(this);
                 _scsClient = ScsServiceClientBuilder.CreateClient<IDriverServer>(
-                    new ScsTcpEndPoint(defaultIP, defaultPort), this);
+                    new ScsTcpEndPoint(defaultIP, defaultPort), listener);
                 _scsClient.Connect();
 
                 _server = _scsClient.ServiceProxy;
@@ -90,6 +91,19 @@ namespace DriverApp
                 }
 
             }
+        }
+    }
+
+    public class DriverClient : IDriverClient
+    {
+        IDriverClient Client;
+        public DriverClient(IDriverClient client)
+        {
+            Client = client;
+        }
+        public void OnOrderReceived()
+        {
+            Client.OnOrderReceived();
         }
     }
 }
