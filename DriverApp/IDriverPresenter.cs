@@ -13,7 +13,5 @@ namespace DriverApp
         void OnUnregisterDriver();
 
         void OnPizzaDelivered();
-
-        void OnReadyForDelivery();
     }
 }

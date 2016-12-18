@@ -31,8 +31,9 @@ namespace DriverApp
         {
             try
             {
+                DriverClient listener = new DriverClient(this);
                 _scsClient = ScsServiceClientBuilder.CreateClient<IDriverServer>(
-                    new ScsTcpEndPoint(defaultIP, defaultPort), this);
+                    new ScsTcpEndPoint(defaultIP, defaultPort), listener);
                 _scsClient.Connect();
 
                 _server = _scsClient.ServiceProxy;
@@ -41,7 +42,7 @@ namespace DriverApp
 
                 if (_driverId != INVALID_DRIVER_ID)
                 {
-                    _server.RegisterDriver(_driverId);
+                    _server.RegisterDriver(_driverId, 0);
                     _view.OnConnected();
                 }
                 else
@@ -62,7 +63,7 @@ namespace DriverApp
         {
             if (_scsClient != null)
             {
-                _server.RegisterDriver(_driverId);
+                _server.UnregisterDriver(_driverId);
                 _scsClient.Disconnect();
                 _scsClient = null;
 
@@ -78,19 +79,11 @@ namespace DriverApp
             }
         }
 
-        void IDriverPresenter.OnReadyForDelivery()
-        {
-            if (_scsClient != null)
-            {
-                _view.OnOrderReceived(_server.GetRoute(_driverId, 0));
-            }
-        }
-
         void IDriverClient.OnOrderReceived()
         {
             if (_scsClient != null && _driverId != INVALID_DRIVER_ID)
             {
-                Route route = _server.GetRoute(_driverId, 0);
+                Route route = _server.GetRoute(_driverId);
 
                 if (route != null)
                 {
@@ -98,6 +91,19 @@ namespace DriverApp
                 }
 
             }
+        }
+    }
+
+    public class DriverClient : IDriverClient
+    {
+        IDriverClient Client;
+        public DriverClient(IDriverClient client)
+        {
+            Client = client;
+        }
+        public void OnOrderReceived()
+        {
+            Client.OnOrderReceived();
         }
     }
 }

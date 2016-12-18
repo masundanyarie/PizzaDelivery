@@ -25,19 +25,24 @@ namespace ServerApp
 
             server.Start();
 
+            OrderEmulator emulator = new OrderEmulator(driverServer);
+            emulator.stopTimer();
+
+            Console.WriteLine("Enter:\n"
+                    + "0 - exit\n"
+                    + "2 - generate order\n");
 
             String line;
             do {
                 //Wait user to stop server by pressing Enter
-                Console.WriteLine("Enter:\n"
-                    + "0 - to exit\n"
-                    + "1 - to send OnOrderReceived\n");
                 line = Console.ReadLine();
 
                 switch (line)
                 {
                     case "1": 
-                        driverServer.SendOnOrderReceived();
+                        break;
+                    case "2":
+                        emulator.generateOrder();
                         break;
                     case "3":
                         new Map();

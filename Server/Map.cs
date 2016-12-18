@@ -10,15 +10,15 @@ namespace ServerApp
 {
     public class Map
     {
-        public const int Size = 4;
+        public const int Size = 10;
         private Dictionary<int, DejkstraAlgorim> calculatedDejksters = new Dictionary<int,DejkstraAlgorim>();
 
         public Map()
         {
-            for (int id = 0; id < Size * Size; id++)
-            {
-                Console.WriteLine(getName(id));
-            }
+            //for (int id = 0; id < Size * Size; id++)
+            //{
+            //    Console.WriteLine(getName(id));
+            //}
         }
 
         private void printDejkster(DejkstraAlgorim da)
@@ -80,6 +80,25 @@ namespace ServerApp
             return "[" + (pointId / Size) + "," + (pointId % Size) + "]";
         }
 
+        public int getDist(int p1, int p2)
+        {
+            if (calculatedDejksters.ContainsKey(p1))
+            {
+                DejkstraAlgorim alg = calculatedDejksters[p1];
+                return (int) alg.points[p2].ValueMetka;
+            }
+            else if (calculatedDejksters.ContainsKey(p2))
+            {
+                DejkstraAlgorim alg = calculatedDejksters[p2];
+                return (int)alg.points[p1].ValueMetka;
+            }
+            else
+            {
+                DejkstraAlgorim alg = startNewDejkster(p1);
+                return (int)alg.points[p2].ValueMetka;
+            }
+        }
+
         public Route getRoute(int p1, int p2)
         {
             int[] idxs;
@@ -87,6 +106,7 @@ namespace ServerApp
             {
                 DejkstraAlgorim alg = calculatedDejksters[p1];
                 idxs = pathToArray(alg.MinPath1(alg.points[p2]));
+                idxs = idxs.Reverse().ToArray<int>();
             }
             else if (calculatedDejksters.ContainsKey(p2))
             {
@@ -97,6 +117,7 @@ namespace ServerApp
             {
                 DejkstraAlgorim alg = startNewDejkster(p1);
                 idxs = pathToArray(alg.MinPath1(alg.points[p2]));
+                idxs = idxs.Reverse().ToArray<int>();
             }
 
             Route r = new Route(idxs);
@@ -241,7 +262,7 @@ namespace ServerApp
                 listOfpoints.Add(tempp);
                 tempp = tempp.predPoint;
             }
-
+            listOfpoints.Add(tempp);
             return listOfpoints;
         }
 

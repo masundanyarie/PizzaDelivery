@@ -47,7 +47,6 @@
     <Compile Include="IDatabase.cs" />
     <Compile Include="ManagerServer.cs" />
     <Compile Include="Map.cs" />
-    <Compile Include="Order.cs" />
     <Compile Include="OrderEmulator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

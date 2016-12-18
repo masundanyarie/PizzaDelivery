@@ -34,11 +34,6 @@ namespace DriverApp
             _presenter.OnPizzaDelivered();
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            _presenter.OnReadyForDelivery();
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {
             _presenter.OnUnregisterDriver();       
@@ -58,15 +53,14 @@ namespace DriverApp
         {
             if (route != null)
             {
-                textBox1.Text += "1";
+                System.Console.WriteLine(route.ToString());
             }
             // stub
         }
 
         int IDriverView.GetDriverId()
         {
-            return 1;
-            // stub
+            return Int32.Parse(textBox1.Text);
         }
     }
 }
