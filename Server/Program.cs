@@ -17,10 +17,12 @@ namespace ServerApp
         {
             var server = ScsServiceBuilder.CreateService(new ScsTcpEndPoint(10047));
 
-            DriverServer driverServer = new DriverServer(null);
+            IDatabase database = new DataBase();
+
+            DriverServer driverServer = new DriverServer(database);
             server.AddService<IDriverServer, DriverServer>(driverServer);
 
-            ManagerServer managerServer = new ManagerServer();
+            ManagerServer managerServer = new ManagerServer(database);
             server.AddService<IManagerServer, ManagerServer>(managerServer);
 
             server.Start();

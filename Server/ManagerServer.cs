@@ -13,6 +13,11 @@ namespace ServerApp
     {
         IDatabase database = null;
 
+        public ManagerServer(IDatabase database)
+        {
+            this.database = database;
+        }
+
         public Statistics GetStatistics(DateTime dateBegin, DateTime dateEnd)
         {
             Console.WriteLine("GetStatistics");
