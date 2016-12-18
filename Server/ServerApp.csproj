@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataBase.cs" />
     <Compile Include="IDatabase.cs" />
     <Compile Include="ManagerServer.cs" />
     <Compile Include="Map.cs" />
