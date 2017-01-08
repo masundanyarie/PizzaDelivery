@@ -16,18 +16,5 @@ namespace ServerApp
         List<Order> getByDriverId(int id);
         List<Order> getByBranchId(int id);
         List<Order> getByPizzaType(int id);
-        {
-            public void GetAllDatesAndInitialize(DateTime startingDate, DateTime endingDate)
-    {
-        List<DateTime> allDates = new List<DateTime>();
-
-        int starting = startingDate.Day;
-        int ending = endingDate.Day;
-
-        for (int i = starting; i <= ending; i++)
-        {
-            allDates.Add(new DateTime(startingDate.Year, startingDate.Month, i));
-        }
-        
     }
 }

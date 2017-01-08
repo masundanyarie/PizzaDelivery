@@ -1,42 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ServerApp.DriverServer" BaseTypeListCollapsed="true">
-    <Position X="2.75" Y="0.5" Width="1.5" />
-    <Members>
-      <Method Name="SendOnOrderReceived" Hidden="true" />
-    </Members>
+    <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEAAAAAAAAACAEAAAAAAAAAAAAIAAAAAAAAABAAAAAA=</HashCode>
+      <HashCode>AMgAAhAAAAADAEBAAAAAAAAAAAIAAAAAAAIBAAAAACA=</HashCode>
       <FileName>DriverServer.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="client" />
+      <Field Name="mDatabase" />
     </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="mDrivers" />
+    </ShowAsCollectionAssociation>
     <Lollipop Position="1.098" />
   </Class>
   <Class Name="ServerApp.ManagerServer" BaseTypeListCollapsed="true">
-    <Position X="5" Y="0.75" Width="1.5" />
+    <Position X="5.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAQBAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ManagerServer.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="database" />
+    </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DeliveryPizzaLib.Driver.Route" Collapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier />
+  <Class Name="ServerApp.Driver">
+    <Position X="3" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAABAAAAAAAAAAAAgAAAAAgAAgA=</HashCode>
+      <FileName>DriverServer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="connection" />
+    </ShowAsAssociation>
   </Class>
-  <Class Name="DeliveryPizzaLib.Manager.Recommendations" Collapsed="true">
-    <Position X="0.5" Y="1.5" Width="1.5" />
+  <Interface Name="DeliveryPizzaLib.Driver.IDriverClient">
+    <Position X="5.5" Y="2.75" Width="1.5" />
     <TypeIdentifier />
-  </Class>
-  <Class Name="DeliveryPizzaLib.Manager.Statistics" Collapsed="true">
-    <Position X="0.5" Y="2.5" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
-  <Interface Name="DeliveryPizzaLib.Driver.IDriverClient" Collapsed="true">
-    <Position X="2.75" Y="3" Width="1.5" />
-    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ServerApp.IDatabase" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAKAAAAAAAAAAAAAAAAAAAAAgAAAQAAAAAAIBAAAA=</HashCode>
+      <FileName>IDatabase.cs</FileName>
+    </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
